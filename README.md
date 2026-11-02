@@ -44,3 +44,5 @@ pip install -r requirements.txt
 
 
 Jenkins automatic build trigger verification.
+
+SCM polling automatic trigger test.
