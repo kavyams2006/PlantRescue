@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: plantrescue-deployment
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: plantrescue
+
+  template:
+    metadata:
+      labels:
+        app: plantrescue
+
+    spec:
+      containers:
+        - name: plantrescue
+          image: plantrescue:1.0
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 8000
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
