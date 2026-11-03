@@ -1,0 +1,20 @@
+---
+- name: Display application name
+  ansible.builtin.debug:
+    msg: "Setting up {{ app_name }}"
+
+- name: Create PlantRescue application directory
+  ansible.builtin.file:
+    path: "{{ app_directory }}"
+    state: directory
+    mode: '0755'
+  notify: Restart PlantRescue
+
+- name: Create Python virtual environment
+  ansible.builtin.command:
+    cmd: "python3 -m venv {{ app_venv }}"
+    creates: "{{ app_venv }}/bin/python"
+
+- name: Display application port
+  ansible.builtin.debug:
+    msg: "{{ app_name }} will use port {{ app_port }}"

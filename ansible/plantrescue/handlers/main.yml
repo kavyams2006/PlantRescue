@@ -1,0 +1,4 @@
+---
+- name: Restart PlantRescue
+  ansible.builtin.debug:
+    msg: "PlantRescue configuration updated successfully!"

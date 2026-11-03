@@ -1,0 +1,6 @@
+---
+- name: Configure PlantRescue Application
+  hosts: plantrescue_servers
+
+  roles:
+    - plantrescue
