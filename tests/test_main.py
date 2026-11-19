@@ -14,3 +14,8 @@ def test_health():
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json()["status"] == "healthy"
+def test_plant_care():
+    response = client.get("/plant-care")
+    assert response.status_code == 200
+    assert response.json()["plant"] == "Tomato"
+    assert response.json()["disease"] == "Early Blight"

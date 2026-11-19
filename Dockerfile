@@ -1,13 +1,19 @@
-FROM python:3.13-slim
+
+FROM maven:3.9.12-eclipse-temurin-25 AS build
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY pom.xml .
+COPY src ./src
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN mvn clean package -DskipTests
 
-COPY app ./app
+FROM eclipse-temurin:25-jre
 
-EXPOSE 8000
+WORKDIR /app
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY --from=build /app/target/plantrescue-1.0.0.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -19,3 +19,13 @@ def health_check():
     return {
         "status": "healthy"
     }
+
+
+@app.get("/plant-care")
+def plant_care():
+    return {
+        "plant": "Tomato",
+        "disease": "Early Blight",
+        "recommendation": "Remove affected leaves and avoid overhead watering.",
+        "status": "Sample recommendation"
+    }
