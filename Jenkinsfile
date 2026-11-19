@@ -16,13 +16,13 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'mvn clean test'
+               bat 'wsl mvn clean test'
             }
         }
 
         stage('Build Package') {
             steps {
-                bat 'mvn clean package -DskipTests'
+              bat 'wsl mvn clean package -DskipTests'
             }
         }
     }
