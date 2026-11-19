@@ -10,19 +10,19 @@ pipeline {
         stage('Check Java and Maven') {
             steps {
                 bat 'java -version'
-                bat 'mvn -version'
+                bat 'wsl mvn -version'
             }
         }
 
         stage('Run Tests') {
             steps {
-               bat 'wsl mvn clean test'
+                bat 'wsl mvn clean test'
             }
         }
 
         stage('Build Package') {
             steps {
-              bat 'wsl mvn clean package -DskipTests'
+                bat 'wsl mvn clean package -DskipTests'
             }
         }
     }
