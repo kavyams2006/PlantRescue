@@ -7,28 +7,29 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Check Java and Maven') {
             steps {
-                bat '"C:/Users/kavya/AppData/Local/Programs/Python/Python313/python.exe" -m pip install -r requirements.txt build'
+                bat 'java -version'
+                bat 'mvn -version'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '"C:/Users/kavya/AppData/Local/Programs/Python/Python313/python.exe" -m pytest -v'
+                bat 'mvn clean test'
             }
         }
 
         stage('Build Package') {
             steps {
-                bat '"C:/Users/kavya/AppData/Local/Programs/Python/Python313/python.exe" -m build'
+                bat 'mvn clean package -DskipTests'
             }
         }
     }
 
     post {
         success {
-            archiveArtifacts artifacts: 'dist/*.whl, dist/*.tar.gz', fingerprint: true
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
     }
 }
